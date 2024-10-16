@@ -64,10 +64,14 @@ public class GamePanel extends JPanel implements Runnable {
     @Override
     public void paintComponent (Graphics g) {
         super.paintComponent(g);
-        char[][] arrayOfChars = {{'A', 'A', 'A'}, {98, 100, 98}, {'/', '|', '\\'}};
+        char[][] arrayOfChars = {{'A', 'A', 'A'}, {130, 132, 130}, {'/', '|', '\\'}};
         LettersDecoder decoder = new LettersDecoder(13, 8, "src/myself/resources/letters/letters.png");
         Graphics2D g2 = (Graphics2D)g;
-        decoder.printAllChars(arrayOfChars, 5, 5, g2);
+        decoder.printAllChars(arrayOfChars, 4, 5, g2);
+
+        GraphicsLayer layer = new GraphicsLayer(6, 6, 20);
+        SimpleGraphicsObject ranObj = new SimpleGraphicsObject(3, 3, layer, arrayOfChars);
+        decoder.printAllChars(layer.getObj(3, 3).getSubTexture(1, 1, 5, 1), 50, 200, g2);
         g2.dispose();
     }
 }

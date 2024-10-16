@@ -34,7 +34,9 @@ public class LettersDecoder {
     public void printAllChars (char[][] charsToPrint, int x, int y, Graphics2D g2) {
         for (int i = 0; i < charsToPrint.length; i++) {
             for (int j = 0; j < charsToPrint[i].length; j++) {
-                g2.drawImage(getCharSprite(charsToPrint[i][j]), x + (j * CHAR_WIDTH), y + (i * CHAR_HEIGHT), CHAR_WIDTH, CHAR_HEIGHT, null);
+                try {
+                    g2.drawImage(getCharSprite(charsToPrint[i][j]), x + (j * CHAR_WIDTH), y + (i * CHAR_HEIGHT), CHAR_WIDTH, CHAR_HEIGHT, null);
+                } catch (ArrayIndexOutOfBoundsException ignored) {}
             }
         }
     }
