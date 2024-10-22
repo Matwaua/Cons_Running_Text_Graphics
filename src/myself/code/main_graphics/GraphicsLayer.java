@@ -1,31 +1,42 @@
 package myself.code.main_graphics;
 
-public class GraphicsLayer {
-    private SimpleGraphicsObject[][] layer;
-    private final int gridSize;
+import myself.code.main_graphics.base_objects.SimpleGraphicsObject;
 
-    public GraphicsLayer(int layerSizeX, int layerSizeY, int gridSize) {
-        this.layer = new SimpleGraphicsObject[layerSizeX][layerSizeY];
-        this.gridSize = gridSize;
+import static myself.code.main_graphics.GamePanel.*;
+
+public class GraphicsLayer {
+    private SimpleGraphicsObject[][] layerObjs;
+    private static int gridSizeX;
+    private static int gridSizeY;
+
+    public GraphicsLayer(int layerSizeX, int layerSizeY) {
+        this.layerObjs = new SimpleGraphicsObject[layerSizeX][layerSizeY];
     }
 
     public void addToLayerByGridSize (int layerX, int layerY, SimpleGraphicsObject obj) {
-        layer[layerX][layerY] = obj;
+        layerObjs[layerX][layerY] = obj;
     }
 
     public void addToLayerByPixelSize (int x, int y, SimpleGraphicsObject obj) {
-        layer[x/gridSize][y/gridSize] = obj;
+        layerObjs[x/ gridSizeY][y/ gridSizeY] = obj;
     }
 
     public SimpleGraphicsObject[][] getLayer () {
-        return layer;
+        return layerObjs;
     }
 
     public SimpleGraphicsObject getObj (int x, int y) {
-        return layer[x][y];
+        return layerObjs[x][y];
+    }
+    public static int getGridSizeX() {
+        return gridSizeX;
     }
 
-    public int getGridSize() {
-        return gridSize;
+    public static int getGridSizeY() {
+        return gridSizeY;
+    }
+    public static void setGridSize(int gridSizeY) {
+        GraphicsLayer.gridSizeY = gridSizeY;
+        GraphicsLayer.gridSizeX = (int) (gridSizeY * (float) CHAR_WIDTH_RAW / CHAR_HEIGHT_RAW);
     }
 }

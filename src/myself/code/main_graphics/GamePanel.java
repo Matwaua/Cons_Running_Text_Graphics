@@ -1,16 +1,13 @@
 package myself.code.main_graphics;
 
 import myself.code.inputs.KeyHandler;
+import myself.code.main_graphics.base_objects.SimpleGraphicsObject;
 
-import javax.imageio.ImageIO;
-import javax.imageio.stream.ImageOutputStream;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class GamePanel extends JPanel implements Runnable {
-    public static final int CHAR_SCALE = 10;
+    public static final int CHAR_SCALE = 3;
 
     public static final int CHAR_WIDTH_RAW = 5;
     public static final int CHAR_HEIGHT_RAW = 6;
@@ -64,14 +61,26 @@ public class GamePanel extends JPanel implements Runnable {
     @Override
     public void paintComponent (Graphics g) {
         super.paintComponent(g);
-        char[][] arrayOfChars = {{'A', 'A', 'A'}, {130, 132, 130}, {'/', '|', '\\'}};
+        char[][] arrayOfChars = {{'A', 'A', 'A'}, {138, 132, 137}, {'/', '|', '\\'}};
+        char[][] lineOfChars = {{'A', 'A', 'A', 'A', 'A'}, {'A', 'A', 'A', 'A', 'A'}, {'A', 'A', 'A', 'A', 'A'}, {'A', 'A', 'A', 'A', 'A'}};
         LettersDecoder decoder = new LettersDecoder(13, 8, "src/myself/resources/letters/letters.png");
         Graphics2D g2 = (Graphics2D)g;
-        decoder.printAllChars(arrayOfChars, 4, 5, g2);
 
-        GraphicsLayer layer = new GraphicsLayer(6, 6, 20);
-        SimpleGraphicsObject ranObj = new SimpleGraphicsObject(3, 3, layer, arrayOfChars);
-        decoder.printAllChars(layer.getObj(3, 3).getSubTexture(1, 1, 5, 1), 50, 200, g2);
+        GraphicsLayer layer = new GraphicsLayer(6, 6);
+        GraphicsLayer.setGridSize(3 * CHAR_HEIGHT);
+
+        //decoder.printAllChars(lineOfChars, 0, 0, g2);
+
+        SimpleGraphicsObject ranObj = new SimpleGraphicsObject(0, 0, layer, arrayOfChars).setToLayer();
+        SimpleGraphicsObject ranObj1 = new SimpleGraphicsObject(0, 1, layer, arrayOfChars).setToLayer();
+        SimpleGraphicsObject ranObj2 = new SimpleGraphicsObject(0, 2, layer, arrayOfChars).setToLayer();
+        SimpleGraphicsObject ranObj3 = new SimpleGraphicsObject(0, 3, layer, arrayOfChars).setToLayer();
+        SimpleGraphicsObject ranObj5 = new SimpleGraphicsObject(1, 0, layer, arrayOfChars).setToLayer();
+        SimpleGraphicsObject ranObj6 = new SimpleGraphicsObject(2, 0, layer, arrayOfChars).setToLayer();
+        SimpleGraphicsObject ranObj7 = new SimpleGraphicsObject(3, 1, layer, arrayOfChars).setToLayer();
+        SimpleGraphicsObject ranObj8 = new SimpleGraphicsObject(3, 2, layer, arrayOfChars).setToLayer();
+        decoder.printLayer(layer, g2);
+
         g2.dispose();
     }
 }
